@@ -57,7 +57,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -102,6 +102,8 @@
     <ClCompile Include="source\framework\object.cpp" />
     <ClCompile Include="source\framework\shader.cpp" />
     <ClCompile Include="source\framework\utils.cpp" />
+    <ClCompile Include="source\railway.cpp" />
+    <ClCompile Include="source\train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shader.frag" />
@@ -493,6 +495,8 @@
     <ClInclude Include="source\framework\object.h" />
     <ClInclude Include="source\framework\shader.h" />
     <ClInclude Include="source\framework\utils.h" />
+    <ClInclude Include="source\railway.h" />
+    <ClInclude Include="source\train.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

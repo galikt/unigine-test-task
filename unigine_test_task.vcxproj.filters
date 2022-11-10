@@ -75,6 +75,12 @@
     <ClCompile Include="source\framework\utils.cpp">
       <Filter>source\framework</Filter>
     </ClCompile>
+    <ClCompile Include="source\railway.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\train.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\shader.frag">
@@ -1239,6 +1245,12 @@
     </ClInclude>
     <ClInclude Include="source\framework\utils.h">
       <Filter>source\framework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\railway.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\train.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

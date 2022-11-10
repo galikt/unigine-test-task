@@ -1,5 +1,8 @@
 #include "framework/engine.h"
 #include "framework/utils.h"
+#include "railway.h"
+#include "train.h"
+#include <memory>
 
 using namespace std;
 using namespace glm;
@@ -36,26 +39,39 @@ int main()
 	plane->setScale(20.0f);
 
 	// path
-	const float path[] = {
-		 0.0f, -0.375f,  7.0f, // 1
-		-6.0f, -0.375f,  5.0f, // 2
-		-8.0f, -0.375f,  1.0f, // 3
-		-4.0f, -0.375f, -6.0f, // 4
-		 0.0f, -0.375f, -7.0f, // 5
-		 1.0f, -0.375f, -4.0f, // 6
-		 4.0f, -0.375f, -3.0f, // 7
-		 8.0f, -0.375f,  7.0f  // 8
+	const vector<glm::vec3> path = {
+		{ 0.0f, -0.375f,  7.0f}, // 1
+		{-6.0f, -0.375f,  5.0f}, // 2
+		{-8.0f, -0.375f,  1.0f}, // 3
+		{-4.0f, -0.375f, -6.0f}, // 4
+		{ 0.0f, -0.375f, -7.0f}, // 5
+		{ 1.0f, -0.375f, -4.0f}, // 6
+		{ 4.0f, -0.375f, -3.0f}, // 7
+		{ 8.0f, -0.375f,  7.0f}  // 8
 	};
-	vector<Object *> points;
-	for (int i = 0; i < 8; i++)
+	//vector<Object *> points;
+	//for (const auto vec : path)
+	//{
+	//Object *sphere = engine->createObject(&sphere_mesh);
+	//	sphere->setColor(1, 0, 0);
+	//	sphere->setPosition(vec.x, vec.y, vec.z);
+	//	sphere->setScale(0.25f);
+	//	points.push_back(sphere);
+	//}
+	//LineDrawer path_drawer(reinterpret_cast<const float*>(path.data()), path.size(), true);
+
+	shared_ptr<Railway> railway(new Railway(path));
+
+	float speed = 5.0f;
+	vector<shared_ptr<Train>> trains;
+	for (int i = 0; i < 8; ++i)
 	{
-		Object *sphere = engine->createObject(&sphere_mesh);
-		sphere->setColor(1, 0, 0);
-		sphere->setPosition(path[i*3], path[i*3+1], path[i*3+2]);
-		sphere->setScale(0.25f);
-		points.push_back(sphere);
+		shared_ptr<Train> train(new Train(railway, i * 1.1f, speed));
+		trains.push_back(train);
 	}
-	LineDrawer path_drawer(path, points.size(), true);
+
+	double time = 0;
+	double old_time = 0;
 
 	// main loop
 	while (!engine->isDone())
@@ -63,8 +79,18 @@ int main()
 		engine->update();
 		engine->render();
 
-		path_drawer.draw();
+		//path_drawer.draw();
+		railway->Draw();
 		
+		time = glfwGetTime();
+		for (auto train : trains)
+		{
+			train->Update(time - old_time);
+			train->Draw();
+		}
+
+		old_time = time;
+
 		engine->swap();
 	}
 
