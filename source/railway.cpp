@@ -34,7 +34,7 @@ void Railway::CreatePath(const std::vector<glm::vec3>& points)
 	float accuracy;
 	for (int i = 0; i < size; ++i)
 	{
-		const glm::vec3 v1 = points[i % size];
+		const glm::vec3 v1 = points[i];
 		const glm::vec3 v2 = points[(i + 1) % size];
 		const glm::vec3 v3 = points[(i + 2) % size];
 		const glm::vec3 v4 = points[(i + 3) % size];
@@ -114,7 +114,8 @@ void Railway::CreateMesh()
 	position.offset = 0.0f;
 	glm::mat4 old_mat;
 	CalcPosition(position, 0.0f, old_mat);
-	for (;;)
+	bool run = true;
+	while (run)
 	{
 		before = position.index;
 		CalcPosition(position, RAIL_HEIGHT, mat);
@@ -122,7 +123,7 @@ void Railway::CreateMesh()
 
 		//начался новый круг
 		if (after - before < 0)
-			break;
+			run = false;
 
 		float z = 0.005f;
 		std::vector<glm::vec4> points{
